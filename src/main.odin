@@ -8,7 +8,7 @@ main :: proc() {
     for !rl.WindowShouldClose() {
         rl.BeginDrawing()
 
-        rl.ClearBackground(rl.RAYWHITE)
+        rl.ClearBackground(rl.BLACK)
         rl.DrawText("Hellope!", 190, 200, 20, rl.LIGHTGRAY)
 
         rl.EndDrawing()
