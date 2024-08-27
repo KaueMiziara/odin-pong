@@ -3,13 +3,16 @@ package pong
 import rl "vendor:raylib"
 
 main :: proc() {
-    rl.InitWindow(800, 450, "Hello, world!")
+    WINDOW_WIDTH  :: 800
+    WINDOW_HEIGHT :: 450
+
+    rl.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "!")
 
     for !rl.WindowShouldClose() {
         rl.BeginDrawing()
 
         rl.ClearBackground(rl.BLACK)
-        rl.DrawText("Hellope!", 190, 200, 20, rl.LIGHTGRAY)
+        rl.DrawText("!", 190, 200, 20, rl.LIGHTGRAY)
 
         rl.EndDrawing()
     }
