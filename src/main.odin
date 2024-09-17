@@ -3,19 +3,24 @@ package pong
 import rl "vendor:raylib"
 
 main :: proc() {
-    WINDOW_WIDTH  :: 800
-    WINDOW_HEIGHT :: 450
+	WINDOW_WIDTH :: 1280
+	WINDOW_HEIGHT :: 800
 
-    rl.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "!")
+	ball := Ball{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 7, 7, 20}
 
-    for !rl.WindowShouldClose() {
-        rl.BeginDrawing()
+	rl.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "!")
+	rl.SetTargetFPS(60)
+
+	for !rl.WindowShouldClose() {
+		rl.BeginDrawing()
+
+		update_ball_position(&ball)
 
         rl.ClearBackground(rl.BLACK)
-        rl.DrawText("!", 190, 200, 20, rl.LIGHTGRAY)
+		draw_ball(&ball)
 
-        rl.EndDrawing()
-    }
+		rl.EndDrawing()
+	}
 
-    rl.CloseWindow()
+	rl.CloseWindow()
 }
