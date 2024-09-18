@@ -39,6 +39,9 @@ main :: proc() {
 		update_bar_position(&player1)
 		update_bar_position(&player2)
 
+        check_collision(&ball, &player1)
+        check_collision(&ball, &player2)
+
 		rl.ClearBackground(rl.BLACK)
 		draw_ball(&ball)
 		draw_bar(&player1)
@@ -52,4 +55,14 @@ main :: proc() {
 	free(&player2)
 
 	rl.CloseWindow()
+}
+
+check_collision :: proc(ball: ^Ball, bar: ^Bar) {
+	if (rl.CheckCollisionCircleRec(
+			   rl.Vector2{f32(ball.x), f32(ball.y)},
+			   ball.radius,
+			   rl.Rectangle{f32(bar.x), f32(bar.y), f32(bar.width), f32(bar.height)},
+		   )) {
+		ball.speed_x *= -1
+	}
 }
