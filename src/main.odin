@@ -9,6 +9,8 @@ main :: proc() {
 	BARS_WIDTH :: 25
 	BARS_HEIGHT :: 120
 
+	score := Score{0, 0}
+
 	ball := Ball{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 7, 7, 20}
 
 	player_r := Bar {
@@ -40,11 +42,22 @@ main :: proc() {
 
 		check_collision(&ball, &player_r)
 		check_collision(&ball, &player_l)
+        check_scored(&score, &ball)
 
 		rl.ClearBackground(rl.BLACK)
+		rl.DrawLine(WINDOW_WIDTH / 2, 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT, rl.WHITE)
 		draw_ball(&ball)
 		draw_bar(&player_r)
 		draw_bar(&player_l)
+
+		rl.DrawText(rl.TextFormat("%i", score.player_l), WINDOW_WIDTH / 4 - 20, 20, 80, rl.WHITE)
+		rl.DrawText(
+			rl.TextFormat("%i", score.player_r),
+			3 * WINDOW_WIDTH / 4 - 20,
+			20,
+			80,
+			rl.WHITE,
+		)
 
 		rl.EndDrawing()
 	}
@@ -52,6 +65,7 @@ main :: proc() {
 	free(&ball)
 	free(&player_r)
 	free(&player_l)
+	free(&score)
 
 	rl.CloseWindow()
 }
