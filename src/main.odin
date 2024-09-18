@@ -11,7 +11,7 @@ main :: proc() {
 
 	ball := Ball{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 7, 7, 20}
 
-	player1 := Bar {
+	player_r := Bar {
 		WINDOW_WIDTH - BARS_WIDTH - 10,
 		WINDOW_HEIGHT / 2 - BARS_HEIGHT / 2,
 		BARS_WIDTH,
@@ -19,7 +19,7 @@ main :: proc() {
 		6,
 		{rl.KeyboardKey.I, rl.KeyboardKey.K},
 	}
-	player2 := Bar {
+	player_l := Bar {
 		10,
 		WINDOW_HEIGHT / 2 - BARS_HEIGHT / 2,
 		BARS_WIDTH,
@@ -28,7 +28,6 @@ main :: proc() {
 		{rl.KeyboardKey.W, rl.KeyboardKey.S},
 	}
 
-
 	rl.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Pong")
 	rl.SetTargetFPS(60)
 
@@ -36,23 +35,23 @@ main :: proc() {
 		rl.BeginDrawing()
 
 		update_ball_position(&ball)
-		update_bar_position(&player1)
-		update_bar_position(&player2)
+		update_bar_position(&player_r)
+		update_bar_position(&player_l)
 
-        check_collision(&ball, &player1)
-        check_collision(&ball, &player2)
+		check_collision(&ball, &player_r)
+		check_collision(&ball, &player_l)
 
 		rl.ClearBackground(rl.BLACK)
 		draw_ball(&ball)
-		draw_bar(&player1)
-		draw_bar(&player2)
+		draw_bar(&player_r)
+		draw_bar(&player_l)
 
 		rl.EndDrawing()
 	}
 
 	free(&ball)
-	free(&player1)
-	free(&player2)
+	free(&player_r)
+	free(&player_l)
 
 	rl.CloseWindow()
 }
