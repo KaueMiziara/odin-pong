@@ -6,10 +6,7 @@ Bar :: struct {
 	x, y:          i32,
 	width, height: i32,
 	speed:         i32,
-}
-
-new_bar :: proc(x: i32, y: i32, width: i32, height: i32, speed: i32) -> Bar {
-	return Bar{x, y, width, height, speed}
+	keys:          [2]rl.KeyboardKey,
 }
 
 draw_bar :: proc(bar: ^Bar) {
@@ -17,11 +14,11 @@ draw_bar :: proc(bar: ^Bar) {
 }
 
 update_bar_position :: proc(bar: ^Bar) {
-	if (rl.IsKeyDown(rl.KeyboardKey.UP)) {
+	if (rl.IsKeyDown(bar.keys[0])) {
 		bar.y -= bar.speed
 	}
 
-	if (rl.IsKeyDown(rl.KeyboardKey.DOWN)) {
+	if (rl.IsKeyDown(bar.keys[1])) {
 		bar.y += bar.speed
 	}
 
