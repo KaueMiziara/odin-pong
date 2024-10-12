@@ -3,9 +3,12 @@ use std::vec;
 use rand::seq::SliceRandom;
 use raylib::{
     color::Color,
+    ffi::CheckCollisionCircleRec,
     math::Vector2,
     prelude::{RaylibDraw, RaylibDrawHandle},
 };
+
+use crate::bar::Bar;
 
 pub struct Ball {
     pub x: i32,
@@ -38,6 +41,24 @@ impl Ball {
 
         if self.get_bottom() >= d.get_screen_height() || self.get_top() <= 0 {
             self.speed.y *= -1.0;
+        }
+    }
+
+    // TODO: refactor to safe Rust
+    pub fn check_collision(&mut self, player: &Bar) {
+        unsafe {
+            if CheckCollisionCircleRec(
+                Vector2::new(self.x as f32, self.y as f32).into(),
+                self.radius,
+                raylib::ffi::Rectangle {
+                    x: player.x as f32,
+                    y: player.y as f32,
+                    width: player.width as f32,
+                    height: player.height as f32,
+                },
+            ) {
+                self.speed.x *= -1.0;
+            }
         }
     }
 

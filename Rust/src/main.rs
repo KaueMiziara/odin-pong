@@ -56,6 +56,9 @@ fn main() {
         player_r.update_pos(&mut d);
         player_l.update_pos(&mut d);
 
+        ball.check_collision(&player_l);
+        ball.check_collision(&player_r);
+
         draw_game(&mut d, &ball, &player_r, &player_l);
     }
 }
