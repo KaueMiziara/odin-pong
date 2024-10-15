@@ -1,5 +1,6 @@
 mod ball;
 mod bar;
+mod score;
 
 use ball::Ball;
 use bar::Bar;
@@ -9,6 +10,7 @@ use raylib::{
     math::Vector2,
     prelude::{RaylibDraw, RaylibDrawHandle},
 };
+use score::Score;
 
 fn main() {
     const WINDOW_WIDTH: i32 = 1280;
@@ -23,6 +25,8 @@ fn main() {
         .build();
 
     rl.set_target_fps(60);
+
+    let mut score = Score::new();
 
     let mut ball = Ball::new(
         WINDOW_WIDTH / 2,
@@ -58,12 +62,13 @@ fn main() {
 
         ball.check_collision(&player_l);
         ball.check_collision(&player_r);
+        score.check_scored(&mut ball, &mut d);
 
-        draw_game(&mut d, &ball, &player_r, &player_l);
+        draw_game(&mut d, &ball, &player_r, &player_l, &score);
     }
 }
 
-fn draw_game(d: &mut RaylibDrawHandle, ball: &Ball, p1: &Bar, p2: &Bar) {
+fn draw_game(d: &mut RaylibDrawHandle, ball: &Ball, p1: &Bar, p2: &Bar, score: &Score) {
     d.clear_background(Color::BLACK);
     d.draw_line(
         d.get_screen_width() / 2,
@@ -76,4 +81,5 @@ fn draw_game(d: &mut RaylibDrawHandle, ball: &Ball, p1: &Bar, p2: &Bar) {
     ball.draw(d);
     p1.draw(d);
     p2.draw(d);
+    score.draw(d);
 }
